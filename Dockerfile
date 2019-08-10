@@ -8,10 +8,8 @@ RUN apt install -y git perl lighttpd php7.2 php7.2-fpm php7.2-cgi php7.2-mysql p
 COPY ./files/php.ini /etc/php/7.2/fpm/php.ini
 COPY ./files/lighttpd.conf /etc/lighttpd/lighttpd.conf
 COPY ./files/15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf
-COPY ./files/mysql.cnf /etc/mysql/conf.d/
 
 COPY ./files/upgrade /bin/
-COPY ./files/initialize /bin/
 COPY ./files/reload /bin/
 
 WORKDIR /opt/
@@ -27,4 +25,5 @@ RUN lighttpd-enable-mod fastcgi \
 
 CMD echo "Starting PHP-FPM service..." && service php7.2-fpm start && echo "Done!" \
  && echo "Starting lighttpd service..." && service lighttpd start && echo "Done!" \
- && echo "All services started. Please wait a few seconds before accessing the web service." && /bin/bash
+ && echo "All services started. Please wait a few seconds before accessing the web service." \
+ && tail -f /dev/null
