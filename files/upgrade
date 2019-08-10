@@ -1,0 +1,20 @@
+#!/bin/bash
+
+service lighttpd stop && pkill lighttpd
+service php7.2-fpm stop
+
+cd /opt/libphutil
+git pull
+cd /opt/arcanist
+git pull
+cd /opt/phabricator
+git pull
+
+/opt/phabricator/bin/phd stop
+
+/opt/phabricator/bin/storage upgrade --force
+
+service lightttpd start
+service php7.2-fpm start
+
+/opt/phabricator/bin/phd start
