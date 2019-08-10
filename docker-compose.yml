@@ -6,7 +6,6 @@ services:
      - "8080:80"
     volumes:
      - ./data/config.json:/opt/phabricator/conf/local/local.json
-     - ./data/repos:/var/repos
     depends_on:
      - mysql
     links:

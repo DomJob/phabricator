@@ -1,10 +1,12 @@
 # Phabricator Docker
 
-This is a dockerfile for running Phabricator on a `lighttpd, mysql, php7.2-fpm` stack.
+This is a dockerfile for running Phabricator on a lighttpd, mysql and php7.2-fpm stack.
 
 ## Setting up
 
 **Step 1**: Clone this repo
+
+    git clone https://github.com/DomJob/phabricator.git
 
 **Step 2**: Build the image
 
@@ -12,34 +14,28 @@ This is a dockerfile for running Phabricator on a `lighttpd, mysql, php7.2-fpm` 
 
 **Step 3**: Run the container
 
-    docker run -d --name=phabricator \
-               -p 8080:80 \
-               -v /path/to/data:/var/lib/mysql \
-               phabricator
+    docker-compose up -d
 
 You may need to change the permission of /path/to/repos to allow phabricator to read/write.
 
-Additionally, you may want to persist `/var/repo` if you plan on using that functionality.
-
 **Step 4**: Run initialize and upgrade scripts
 
-    docker exec phabricator initialize
-    docker exec phabricator upgrade
+    docker-compose exec phabricator upgrade
 
 ## Other stuff
 
 To upgrade to the latest phabricator version:
 
-    docker exec phabricator upgrade
+    docker-compose exec phabricator upgrade
 
-To backup, copy/zip the directories /path/to/data and /path/to/repo
+To backup, copy/zip the data directory
 
-To run a phabricator command given on their documentationm simply add `docker exec phabricator` in front
+To run a phabricator command given on their documentation, simply add `docker-compose exec phabricator` in front
 
 For exemple, to run the command `./bin/auth recover <username>`, you would run:
 
-    docker exec phabricator ./bin/auth recover <username>
+    docker-compose exec phabricator ./bin/auth recover <username>
 
-If you want to reload all services:
+If you want to reload the phabricator daemon, lighttpd as well as PHP:
 
-    docker exec phabricator reload
+    docker-compose exec phabricator reload

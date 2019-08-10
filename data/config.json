@@ -1,4 +1,5 @@
 {
+  "storage.mysql-engine.max-size": 8388608,
   "mysql.pass": "phassword",
   "mysql.host": "mysql"
 }
