@@ -3,9 +3,7 @@
 /opt/phabricator/bin/phd stop
 service lighttpd stop && pkill lighttpd
 service php7.2-fpm stop
-service mysql stop
 
-service mysql start
 service php7.2-fpm start
 service lighttpd start
 /opt/phabricator/bin/phd start

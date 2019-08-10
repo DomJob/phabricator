@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mysql -e "CREATE USER 'phabricator'@'mysql' IDENTIFIED BY 'phassword';"
+mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'phabricator'@'mysql';"
+
+/opt/phabricator/bin/config set mysql.host mysql
+/opt/phabricator/bin/config set mysql.user phabricator
+/opt/phabricator/bin/config set mysql.password phassword
+/opt/phabricator/bin/config set repository.default-local-path "/var/repo/"
+/opt/phabricator/bin/config set storage.mysql-engine.max-size 0
