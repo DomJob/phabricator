@@ -5,7 +5,8 @@ services:
     ports:
      - "8080:80"
     volumes:
-     - /path/to/data:/var/repos
+     - ./data/config.json:/opt/phabricator/conf/local/local.json
+     - ./data/repos:/var/repos
     depends_on:
      - mysql
     links:
@@ -14,8 +15,8 @@ services:
   mysql:
     restart: always
     volumes:
-     - /path/to/data:/var/lib/mysql
-     - /path/to/data/conf.d:/etc/mysql/conf.d
+     - ./data/mysql:/var/lib/mysql
+     - ./data/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
     image: mysql:5.7.14
     environment:
-     - MYSQL_ROOT_PASSWORD=root_password
+     - MYSQL_ROOT_PASSWORD=phassword
