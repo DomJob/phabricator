@@ -15,15 +15,17 @@ COPY ./files/reload /bin/
 WORKDIR /opt/
 
 RUN git clone https://github.com/phacility/libphutil.git \
- && git clone https://github.com/phacility/arcanist.git \
- && git clone https://github.com/phacility/phabricator.git
+    && git clone https://github.com/phacility/arcanist.git \
+    && git clone https://github.com/phacility/phabricator.git
 
 WORKDIR /opt/phabricator/
 
+RUN echo "<?php \$_SERVER['HTTPS'] = true;" > support/preamble.php
+
 RUN lighttpd-enable-mod fastcgi \
- && lighttpd-enable-mod fastcgi-php
+    && lighttpd-enable-mod fastcgi-php
 
 CMD echo "Starting PHP-FPM service..." && service php7.2-fpm start && echo "Done!" \
- && echo "Starting lighttpd service..." && service lighttpd start && echo "Done!" \
- && echo "All services started. Please wait a few seconds before accessing the web service." \
- && tail -f /dev/null
+    && echo "Starting lighttpd service..." && service lighttpd start && echo "Done!" \
+    && echo "All services started. Please wait a few seconds before accessing the web service." \
+    && tail -f /dev/null

@@ -4,6 +4,8 @@ This is a dockerfile for running Phabricator on a lighttpd, mysql and php7.2-fpm
 
 It is meant to be a lightweight and easy to setup container as well as to backup and keep up to date. Advanced functionalities like extensions/repos are not supported directly. You probably wouldn't want to use this for a big company.
 
+This instance is meant to be used behind a reverse-proxy that handles SSL certificates.
+
 ## Setting up
 
 **Step 1**: Clone this repo
